@@ -1,10 +1,5 @@
-pipeline {
-    agent any
-    stages {
 stage('DeployToProduction') {
-            when {
-                branch 'master'
-            }
+            when {                branch 'master'            }
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
@@ -32,5 +27,5 @@ stage('DeployToProduction') {
                     )
                 }
             }
-    }
 }
+                
