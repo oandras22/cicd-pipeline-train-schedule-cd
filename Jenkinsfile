@@ -1,5 +1,18 @@
-stage('DeployToProduction') {
-            when {                branch 'master'            }
+pipeline {
+    agent any
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Running build automation'
+                sh './gradlew build --no-daemon'
+                archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+            }
+        }
+ 
+        stage('DeployToProduction') {
+            when {
+                branch 'master'
+            }
             steps {
                 input 'Does the staging environment look OK?'
                 milestone(1)
@@ -27,5 +40,6 @@ stage('DeployToProduction') {
                     )
                 }
             }
+        }
+    }
 }
-                
